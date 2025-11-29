@@ -27,11 +27,25 @@ const App = () => {
   let next = null
   let previous = null
 
+
+  // if (match && match.params) {
+  //   const pokemonIndex = pokemonList.findIndex(({ name }) => name === match.params.name)
+  //   previous = pokemonList[(pokemonIndex - 1 + pokemonList.length) % pokemonList.length]
+  //   next = pokemonList[(pokemonIndex + 1) % pokemonList.length]
+  // }
+
+
   if (match && match.params) {
-    const pokemonId = pokemonList.find(({ name }) => name === match.params.name).id
-    previous = pokemonList.find(({ id }) => id === pokemonId - 1)
-    next = pokemonList.find(({ id }) => id === pokemonId + 1)
+    const pokemonIndex = pokemonList.findIndex(({ name }) => name === match.params.name)
+
+    if (pokemonIndex > 0) {
+      previous = pokemonList[pokemonIndex - 1]
+    }
+    if (pokemonIndex < pokemonList.length - 1) {
+      next = pokemonList[pokemonIndex + 1]
+    }
   }
+
 
   return (
     <Routes>
