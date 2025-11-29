@@ -17,3 +17,11 @@ jobs:
         run: npm install
       - name: Check style
         run: npm run eslint
+      - name: Run tests
+        run: npm test
+      - name: Build application
+        run: npm run build
+      - name: Deploy application
+        run: |
+          echo "Deploying application..."
+          npm run start-prod
