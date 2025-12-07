@@ -36,9 +36,9 @@ export default defineConfig({
 
   webServer: {
     command: 'npm start',
-    port: 8080,               // mikä portti app.js käyttää?
-    timeout: 120 * 1000,      // 12sec odotusaika serverin käynnistymiselle
-    reuseExistingServer: false
+    port: 8080,               // app.js portti
+    timeout: 120 * 1000,      // timelimit serverin käynnistymiselle
+    reuseExistingServer: true  // jos serveri on jo käynnissä, käytä sitä 
   },
 
   /* Configure projects for major browsers */
