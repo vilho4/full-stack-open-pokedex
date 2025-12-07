@@ -15,13 +15,28 @@ jobs:
           node-version: "20"
       - name: Install dependencies
         run: npm install
+
+      # Linttaus
       - name: Check style
         run: npm run eslint
-      - name: Run tests
+
+      # Jest
+      - name: Run unit tests
         run: npm test
-      - name: Build application
-        run: npm run build
-      - name: Deploy application
+
+      # Playwright brosersers
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # Playwright E2E tests
+      - name: Run E2E tests
         run: |
-          echo "Deploying application..."
-          npm run start-prod
+          npm start &
+          npx wait-on http://localhost:8080
+          npm run test:pw
+      # - name: Build application
+      #   run: npm run build
+      # - name: Deploy application
+      #   run: |
+      #     echo "Deploying application..."
+      #     npm run start-prod
