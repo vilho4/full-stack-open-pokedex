@@ -38,7 +38,7 @@ export default defineConfig({
     command: 'npm start',
     port: 8080,               // app.js portti
     timeout: 120 * 1000,      // timelimit serverin käynnistymiselle
-    reuseExistingServer: true  // jos serveri on jo käynnissä, käytä sitä 
+    reuseExistingServer: true  // jos serveri on jo käynnissä, käytä sitä
   },
 
   /* Configure projects for major browsers */

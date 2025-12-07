@@ -30,10 +30,7 @@ jobs:
 
       # Playwright E2E tests
       - name: Run E2E tests
-        run: |
-          npm start &
-          npx wait-on http://localhost:8080
-          npm run test:pw
+        run: npm run test:pw
       # - name: Build application
       #   run: npm run build
       # - name: Deploy application
