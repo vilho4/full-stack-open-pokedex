@@ -33,8 +33,15 @@ jobs:
         run: npm run test:pw
 
       # Deployment to render
+      - name: Debug Render secrets
+        run: |
+          echo "SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}" | sed 's/.....$/***** /'
+          echo "API_KEY starts with xntc- ?"
+          echo "${{ secrets.RENDER_API_KEY }}" | grep -q "^xntc-" && echo "OK" || echo "WRONG FORMAT"
+
       - name: Trigger deployment
-        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+        run: curl "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}"
+
       # - name: Build application
       #   run: npm run build
       # - name: Deploy application
