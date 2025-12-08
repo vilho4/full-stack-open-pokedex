@@ -6,6 +6,11 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 
+// health endpoint
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+
 // version endpoint
 app.get('/version', (req, res) => {
   res.send('3, render hook uusiksi')
