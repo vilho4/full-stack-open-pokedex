@@ -31,6 +31,10 @@ jobs:
       # Playwright E2E tests
       - name: Run E2E tests
         run: npm run test:pw
+
+      # Deployment to render
+      - name: Trigger deployment
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
       # - name: Build application
       #   run: npm run build
       # - name: Deploy application
