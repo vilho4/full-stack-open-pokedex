@@ -35,9 +35,11 @@ jobs:
       # Deployment to render
       - name: Debug Render secrets
         run: |
-          echo "SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}" | sed 's/.....$/***** /'
-          echo "API_KEY starts with xntc- ?"
-          echo "${{ secrets.RENDER_API_KEY }}" | grep -q "^xntc-" && echo "OK" || echo "WRONG FORMAT"
+          echo "SERVICE_ID length:"
+          echo "${{ secrets.RENDER_SERVICE_ID }}" | awk '{ print length }'
+
+          echo "API_KEY length:"
+          echo "${{ secrets.RENDER_API_KEY }}" | awk '{ print length }'
 
       - name: Trigger deployment
         run: curl "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}"
