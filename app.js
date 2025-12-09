@@ -6,10 +6,10 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 
-  // health endpoint
- app.get('/health', (req, res) => {
-   res.send('ok')
- })
+// health endpoint
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
 
 // app.get('/health', (req, res) => {
 //   if (true) throw('error...  ')
@@ -18,7 +18,7 @@ app.use(express.static('dist'))
 
 // version endpoint
 app.get('/version', (req, res) => {
-  res.send('4')
+  res.send('5')
 })
 
 app.listen(PORT, () => {
