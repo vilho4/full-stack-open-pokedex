@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
 
 jobs:
   simple_deployment_pipeline:
@@ -24,7 +27,7 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-      # Playwright brosersers
+      # Playwright browsers
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
@@ -43,10 +46,3 @@ jobs:
 
       - name: Trigger deployment
         run: curl "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}"
-
-      # - name: Build application
-      #   run: npm run build
-      # - name: Deploy application
-      #   run: |
-      #     echo "Deploying application..."
-      #     npm run start-prod
