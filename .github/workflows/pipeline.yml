@@ -1,5 +1,5 @@
 name: Deployment pipeline
-
+# CI pipeline updated for PR testing
 on:
   push:
     branches:

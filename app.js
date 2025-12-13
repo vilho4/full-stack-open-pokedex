@@ -11,11 +11,6 @@ app.get('/health', (req, res) => {
   res.send('ok')
 })
 
-// app.get('/health', (req, res) => {
-//   if (true) throw('error...  ')
-//   res.send('ok')
-// })
-
 // version endpoint
 app.get('/version', (req, res) => {
   res.send('5')

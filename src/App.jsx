@@ -27,14 +27,6 @@ const App = () => {
   let next = null
   let previous = null
 
-
-  // if (match && match.params) {
-  //   const pokemonIndex = pokemonList.findIndex(({ name }) => name === match.params.name)
-  //   previous = pokemonList[(pokemonIndex - 1 + pokemonList.length) % pokemonList.length]
-  //   next = pokemonList[(pokemonIndex + 1) % pokemonList.length]
-  // }
-
-
   if (match && match.params) {
     const pokemonIndex = pokemonList.findIndex(({ name }) => name === match.params.name)
 
