@@ -1,5 +1,5 @@
 name: Deployment pipeline
-
+# CI pipeline updated for PR testing
 on:
   push:
     branches:
@@ -45,4 +45,5 @@ jobs:
           echo "${{ secrets.RENDER_API_KEY }}" | awk '{ print length }'
 
       - name: Trigger deployment
+        if: ${{ github.event_name == 'push' }}
         run: curl "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}"
