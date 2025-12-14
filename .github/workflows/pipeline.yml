@@ -11,6 +11,9 @@ on:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
+    # Permissions for pushing tags
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -46,3 +49,9 @@ jobs:
 
       - name: Trigger deployment
         run: curl "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}"
+
+      # Version tag
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
