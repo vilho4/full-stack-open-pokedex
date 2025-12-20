@@ -67,6 +67,7 @@ jobs:
 
       # Secret debugging
       - name: Debug Discord webhook
+        if: ${{ always() }}
         run: |
           if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
             echo "Webhook is EMPTY"
@@ -86,7 +87,7 @@ jobs:
             Repository: ${{ github.repository }}
             Commit: ${{ github.sha }}
             Commit link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
-            Message: ${{ github.event.head_commit.message || github.event.pull_request.title || 'No commit message available' }}
+            Message: ${{ github.event.head_commit.message }}
 
       # Version tag
       - name: Bump version and push tag
