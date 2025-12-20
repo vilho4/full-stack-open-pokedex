@@ -69,18 +69,15 @@ jobs:
       - name: Debug Discord webhook
         if: ${{ always() }}
         run: |
-          if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
-            echo "Webhook is EMPTY"
-          else
-            echo "Webhook is SET"
-          fi
+          echo "DISCORD_WEBHOOK length:"
+          echo "${{ secrets.DISCORD_WEBHOOK }}" | awk '{ print length }'
 
       # Failure notification
       - name: Notify Discord on failure
         if: ${{ failure() }}
         uses: rjstone/discord-webhook-notify@v2
         with:
-          webhookUrl: "${{ secrets.DISCORD_WEBHOOK }}" # Quotes to prevent YAML parsing issues
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }} # Quotes to prevent YAML parsing issues
           severity: error
           details: |
             Build failed
