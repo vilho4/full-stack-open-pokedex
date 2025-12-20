@@ -57,7 +57,7 @@ jobs:
         if: ${{ success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         uses: rjstone/discord-webhook-notify@v2
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhookUrl: "${{ secrets.DISCORD_WEBHOOK }}" # Quotes to prevent YAML parsing issues
           severity: info
           details: |
             Deployment successful
@@ -70,7 +70,7 @@ jobs:
         if: ${{ failure() }}
         uses: rjstone/discord-webhook-notify@v2
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhookUrl: "${{ secrets.DISCORD_WEBHOOK }}" # Quotes to prevent YAML parsing issues
           severity: error
           details: |
             Build failed
