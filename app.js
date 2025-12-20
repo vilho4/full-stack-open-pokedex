@@ -4,6 +4,9 @@ const app = express()
 // get the port from env variable
 const PORT = process.env.PORT || 5000
 
+// will fail
+const x =
+
 app.use(express.static('dist'))
 
 // health endpoint
