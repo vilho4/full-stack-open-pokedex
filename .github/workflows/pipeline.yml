@@ -65,6 +65,15 @@ jobs:
             Commit: ${{ github.sha }}
             Message: ${{ github.event.head_commit.message }}
 
+      # Secret debugging
+      - name: Debug Discord webhook
+        run: |
+          if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
+            echo "Webhook is EMPTY"
+          else
+            echo "Webhook is SET"
+          fi
+
       # Failure notification
       - name: Notify Discord on failure
         if: ${{ failure() }}
