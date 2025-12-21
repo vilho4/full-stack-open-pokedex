@@ -78,13 +78,13 @@ jobs:
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          with:
-            args: |
-              Build failed
-              Repository: {{ EVENT_PAYLOAD.repository.full_name }}
-              Commit: {{ GITHUB_SHA }}
-              Commit link: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/commit/{{ GITHUB_SHA }}
-              Message: {{ EVENT_PAYLOAD.head_commit.message }}
+        with:
+          rgs: |
+            Build failed
+            Repository: {{ EVENT_PAYLOAD.repository.full_name }}
+            Commit: {{ GITHUB_SHA }}
+            Commit link: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/commit/{{ GITHUB_SHA }}
+            Message: {{ EVENT_PAYLOAD.head_commit.message }}
 
       # Version tag
       - name: Bump version and push tag
