@@ -55,29 +55,37 @@ jobs:
       # Success notification
       - name: Notify Discord on successful deploy
         if: ${{ success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
-        uses: rjstone/discord-webhook-notify@v2
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          severity: info
-          details: |
+          args: |
             Deployment successful
             Repository: ${{ github.repository }}
             Commit: ${{ github.sha }}
-            Message: ${{ github.event.head_commit.message }}
+            Commit link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+            Message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
+
+      # # Secret debugging
+      # - name: Debug Discord webhook
+      #   if: ${{ always() }}
+      #   run: |
+      #     echo "DISCORD_WEBHOOK length:"
+      #     echo "${{ secrets.DISCORD_WEBHOOK }}" | awk '{ print length }'
 
       # Failure notification
       - name: Notify Discord on failure
         if: ${{ failure() }}
-        uses: rjstone/discord-webhook-notify@v2
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          severity: error
-          details: |
+          args: |
             Build failed
             Repository: ${{ github.repository }}
             Commit: ${{ github.sha }}
             Commit link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
-            Message: ${{ github.event.head_commit.message || github.event.pull_request.title || 'No commit message available' }}
+            Message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
 
       # Version tag
       - name: Bump version and push tag

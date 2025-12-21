@@ -5,7 +5,7 @@ const app = express()
 const PORT = process.env.PORT || 5000
 
 // will fail
-const x =
+// const x =
 
 app.use(express.static('dist'))
 
