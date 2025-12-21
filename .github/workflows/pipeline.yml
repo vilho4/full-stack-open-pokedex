@@ -57,7 +57,7 @@ jobs:
         if: ${{ success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         uses: rjstone/discord-webhook-notify@v2
         with:
-          webhookUrl: "${{ secrets.DISCORD_WEBHOOK }}" # Quotes to prevent YAML parsing issues
+          webhookUrl: "${{ secrets.DISCORD_WEBHOOK }}"
           severity: info
           details: |
             Deployment successful
@@ -65,12 +65,12 @@ jobs:
             Commit: ${{ github.sha }}
             Message: ${{ github.event.head_commit.message }}
 
-      # Secret debugging
-      - name: Debug Discord webhook
-        if: ${{ always() }}
-        run: |
-          echo "DISCORD_WEBHOOK length:"
-          echo "${{ secrets.DISCORD_WEBHOOK }}" | awk '{ print length }'
+      # # Secret debugging
+      # - name: Debug Discord webhook
+      #   if: ${{ always() }}
+      #   run: |
+      #     echo "DISCORD_WEBHOOK length:"
+      #     echo "${{ secrets.DISCORD_WEBHOOK }}" | awk '{ print length }'
 
       # Failure notification
       - name: Notify Discord on failure
@@ -81,10 +81,10 @@ jobs:
         with:
           args: |
             Build failed
-            Repository: {{ EVENT_PAYLOAD.repository.full_name }}
-            Commit: {{ GITHUB_SHA }}
-            Commit link: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/commit/{{ GITHUB_SHA }}
-            Message: {{ EVENT_PAYLOAD.head_commit.message }}
+            Repository: ${{ github.repository }}
+            Commit: ${{ github.sha }}
+            Commit link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+            Message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
 
       # Version tag
       - name: Bump version and push tag
