@@ -75,16 +75,16 @@ jobs:
       # Failure notification
       - name: Notify Discord on failure
         if: ${{ failure() }}
-        uses: rjstone/discord-webhook-notify@v2
-        with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }} # Quotes to prevent YAML parsing issues
-          severity: error
-          details: |
-            Build failed
-            Repository: ${{ github.repository }}
-            Commit: ${{ github.sha }}
-            Commit link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
-            Message: ${{ github.event.head_commit.message }}
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          with:
+            args: |
+              Build failed
+              Repository: {{ EVENT_PAYLOAD.repository.full_name }}
+              Commit: {{ GITHUB_SHA }}
+              Commit link: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/commit/{{ GITHUB_SHA }}
+              Message: {{ EVENT_PAYLOAD.head_commit.message }}
 
       # Version tag
       - name: Bump version and push tag
