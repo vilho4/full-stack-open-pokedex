@@ -55,15 +55,16 @@ jobs:
       # Success notification
       - name: Notify Discord on successful deploy
         if: ${{ success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
-        uses: rjstone/discord-webhook-notify@v2
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          webhookUrl: "${{ secrets.DISCORD_WEBHOOK }}"
-          severity: info
-          details: |
+          args: |
             Deployment successful
             Repository: ${{ github.repository }}
             Commit: ${{ github.sha }}
-            Message: ${{ github.event.head_commit.message }}
+            Commit link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+            Message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
 
       # # Secret debugging
       # - name: Debug Discord webhook
