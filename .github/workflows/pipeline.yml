@@ -79,7 +79,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          rgs: |
+          args: |
             Build failed
             Repository: {{ EVENT_PAYLOAD.repository.full_name }}
             Commit: {{ GITHUB_SHA }}
